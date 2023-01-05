@@ -1,10 +1,12 @@
 package conversor;
 
+import view.MainFrame;
+
 public class Conversor {
 
 	public static void main(String[] args) {
 		
-		System.out.println("Conversor");
+		MainFrame mainFrame = new MainFrame();
 
 	}
 
