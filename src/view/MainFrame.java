@@ -5,13 +5,13 @@ import javax.swing.JFrame;
 public class MainFrame extends JFrame{
 	
 	public MainFrame() {		
+		MainPanel mainPanel = new MainPanel();
 		
 		setTitle("Conversor Alura");		
+		setBounds(300, 200, 264, 420);
 		setVisible(true);
-		setBounds(300, 400, 276, 420);// modificar para centrar en la pantalla
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		MainPanel mainPanel = new MainPanel();
 		
 		add(mainPanel);
 		
