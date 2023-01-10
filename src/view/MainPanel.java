@@ -1,5 +1,8 @@
 package view;
 
+import java.awt.FlowLayout;
+
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -13,8 +16,11 @@ public class MainPanel extends JPanel {
 	
 	public MainPanel() {
 		
+		setLayout(new FlowLayout(FlowLayout.LEFT,4, 16));
+		setBorder(BorderFactory.createEmptyBorder(16,4,16,0));
+		
 		greeting = new JLabel("Hola!");
-		paragraph = new JLabel("Elije la opción que deseas utilizar");
+		paragraph = new JLabel("Elije la opción que deseas utilizar");		
 		
 		optionGroup = new ButtonGroup();
 		currency = new JRadioButton("Moneda", true);
@@ -27,5 +33,8 @@ public class MainPanel extends JPanel {
 		add(paragraph);
 		add(currency);
 		add(temperature);
+		
+		add(new ConverterPanel());
+			
 	}
 }
