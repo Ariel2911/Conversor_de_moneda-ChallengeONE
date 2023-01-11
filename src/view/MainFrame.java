@@ -8,7 +8,7 @@ public class MainFrame extends JFrame{
 		MainPanel mainPanel = new MainPanel();
 		
 		setTitle("Conversor Alura");		
-		setBounds(300, 200, 264, 420);
+		setBounds(300, 200, 264, 444);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
