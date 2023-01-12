@@ -2,10 +2,11 @@ package view;
 
 import java.awt.Button;
 import java.awt.Color;
-import java.awt.ComponentOrientation;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
@@ -19,7 +20,7 @@ public class ConverterPanel extends JPanel {
 	private JLabel value, result;
 	private JTextField valueField;
 	private JComboBox<Object> combo1, combo2;
-	private Button buttonConverter;
+	private Button buttonConverter;	
 	
 	public ConverterPanel(Color color, String value, String result) {
 		
@@ -29,7 +30,16 @@ public class ConverterPanel extends JPanel {
 						color, 2 , true), 
 						BorderFactory.createEmptyBorder(8,8,8,8)
 					)
-				);		
+				);
+		
+		ActionListener event = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("convertir");
+				
+			}
+		}; 
 		
 		this.value = new JLabel(value);
 		this.result = new JLabel(result);
@@ -47,13 +57,13 @@ public class ConverterPanel extends JPanel {
 		this.buttonConverter.setFont(new Font("Sanserif", Font.PLAIN, 18));
 		this.buttonConverter.setForeground(Color.WHITE);
 		this.buttonConverter.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		this.buttonConverter.addActionListener(event);
 
 		add(this.value);
 		add(this.valueField);
 		add(this.combo1);
 		add(this.combo2);
 		add(this.buttonConverter);
-		add(this.result);
-		
+		add(this.result);		
 	}
 }

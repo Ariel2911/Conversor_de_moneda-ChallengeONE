@@ -17,38 +17,35 @@ public class MainPanel extends JPanel {
 	private ButtonGroup optionGroup;
 	private JRadioButton currency, temperature;
 	
+	ConverterPanel ConverterPanelCurrency = new ConverterPanel(new Color(255,0,0), "importe", "150 pesos");
+	ConverterPanel ConverterPanelTemperature = new ConverterPanel(new Color(0,0,255), "valor", "150 Cº");
+	
 	public MainPanel() {
 		
-		ConverterPanel ConverterPanelCurrency = new ConverterPanel(new Color(255,0,0), "importe", "150 pesos");
-		ConverterPanel ConverterPanelTemperature = new ConverterPanel(new Color(0,0,255), "valor", "150 Cº");
+		setLayout(new FlowLayout(FlowLayout.LEFT,0, 16));
+		
+		setBorder(BorderFactory.createEmptyBorder(8,8,8,8));
+		
+		ConverterPanelTemperature.setVisible(false);
 		
 		ActionListener evento = new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			
 				if(e.getSource() == currency) {
-//					System.out.println("currency");
-					remove(ConverterPanelTemperature);
-					repaint();
-					add(ConverterPanelCurrency);
+					ConverterPanelTemperature.setVisible(false);
+					ConverterPanelCurrency.setVisible(true);
 				}
 				
 				if(e.getSource() == temperature) {
-//					System.out.println("temperature");
-					remove(ConverterPanelCurrency);
-					repaint();
-					add(ConverterPanelTemperature);
+					ConverterPanelCurrency.setVisible(false);
+					ConverterPanelTemperature.setVisible(true);
 				}
-				
 			}
 		};
 		
-		setLayout(new FlowLayout(FlowLayout.LEFT,4, 16));
-		setBorder(BorderFactory.createEmptyBorder(16,4,16,0));
-		
 		greeting = new JLabel("Hola!");
-		paragraph = new JLabel("Elije la opción que deseas utilizar");		
+		paragraph = new JLabel("Elije la opción que deseas utilizar");
 		
 		optionGroup = new ButtonGroup();
 		currency = new JRadioButton("Moneda", true);
@@ -64,8 +61,8 @@ public class MainPanel extends JPanel {
 		add(paragraph);
 		add(currency);
 		add(temperature);
-		
 		add(ConverterPanelCurrency);
+		add(ConverterPanelTemperature);
 			
 	}
 }
