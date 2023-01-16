@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -25,8 +27,17 @@ public class MainPanel extends JPanel {
 		
 		setBorder(BorderFactory.createEmptyBorder(8,8,8,8));
 		
-		ConverterPanelCurrency = new ConverterPanel(new Color(255,0,0), "importe", "150 pesos");
-		ConverterPanelTemperature = new ConverterPanel(new Color(0,0,255), "valor", "150 Cº");
+		Map<String, Double> currencyMap = new HashMap<>();		
+		currencyMap.put("USD", 1.0);
+		currencyMap.put("ARS", 0.0055);
+		currencyMap.put("BRL", 0.19);
+		
+		Map<String, Double> temperatureMap = new HashMap<>();		
+		temperatureMap.put("Cº", 1.0);
+		temperatureMap.put("Fº", 0.0055);
+		
+		ConverterPanelCurrency = new ConverterPanel(new Color(255,0,0), "importe", "0,00 ARS", currencyMap);
+		ConverterPanelTemperature = new ConverterPanel(new Color(0,0,255), "valor", "0,00 Fº", temperatureMap);
 		
 		ConverterPanelTemperature.setVisible(false);
 		
@@ -37,9 +48,7 @@ public class MainPanel extends JPanel {
 				if(e.getSource() == currency) {
 					ConverterPanelTemperature.setVisible(false);
 					ConverterPanelCurrency.setVisible(true);
-				}
-				
-				if(e.getSource() == temperature) {
+				}else if(e.getSource() == temperature) {
 					ConverterPanelCurrency.setVisible(false);
 					ConverterPanelTemperature.setVisible(true);
 				}

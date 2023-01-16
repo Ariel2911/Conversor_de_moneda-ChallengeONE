@@ -8,7 +8,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
@@ -22,12 +21,11 @@ import javax.swing.border.LineBorder;
 public class ConverterPanel extends JPanel {
 	private JLabel value, result;
 	private JTextField valueField;
-	private JComboBox<Object> combo1, combo2;
+	private JComboBox<String> combo1, combo2;
 	private Button buttonConverter;	
-	private Map<String, Double> currencyMap;
 	
 	
-	public ConverterPanel(Color color, String value, String result) {
+	public ConverterPanel(Color color, String value, String result, Map<String, Double> valueMap) {
 		
 		setLayout(new GridLayout(6, 1, 8, 8));
 		setBorder(new CompoundBorder(
@@ -44,47 +42,36 @@ public class ConverterPanel extends JPanel {
 		
 		this.valueField = new JTextField("0",20);
 		
-		currencyMap = new HashMap<>();		
-		currencyMap.put("USD", 1.0);
-		currencyMap.put("ARS", 0.0055);
-		currencyMap.put("BRL", 0.19);
+		this.combo1 = new JComboBox<String>();
+		this.combo2 = new JComboBox<String>();
 		
-		this.combo1 = new JComboBox<Object>();
-		this.combo2 = new JComboBox<Object>();
-		
-		for (String item : currencyMap.keySet()) {
-			
-			this.combo1.addItem(item);
-		}
-		for (String item : currencyMap.keySet()) {
-			
-			this.combo2.addItem(item);
-		}
-		
+		valueMap.keySet().forEach((key) -> this.combo1.addItem(key));
+		valueMap.keySet().forEach((key) -> this.combo2.addItem(key));
+
 		ActionListener event = new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
 				Double DoubleValueField = Double.parseDouble(valueField.getText());
-				Double valueSelectCombo1 = currencyMap.get(combo1.getSelectedItem());
-				Double valueSelectCombo2 = currencyMap.get(combo2.getSelectedItem());
+				Double valueSelectCombo1 = valueMap.get(combo1.getSelectedItem());
+				Double valueSelectCombo2 = valueMap.get(combo2.getSelectedItem());
 				
 				Double resultConvert = 
 						(DoubleValueField * valueSelectCombo1) 
 						/ valueSelectCombo2;
 				
-				String formatResultConvert = new DecimalFormat("0.0000").format(resultConvert);
+				String formatResultConvert;
+								
+				formatResultConvert = new DecimalFormat("0.00").format(resultConvert);		
 				
 				ConverterPanel.this.result.setText(
 						formatResultConvert 
 						+" " 
 						+ combo2.getSelectedItem()
-						);
-				
+						);				
 			}
-		}; 
-		
+		}; 		
 		
 		this.buttonConverter = new Button("Convertir");
 		this.buttonConverter.setBackground(color);
