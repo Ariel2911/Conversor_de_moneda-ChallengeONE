@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.CompoundBorder;
@@ -22,8 +23,7 @@ public class ConverterPanel extends JPanel {
 	private JLabel value, result;
 	private JTextField valueField;
 	private JComboBox<String> combo1, combo2;
-	private Button buttonConverter;	
-	
+	private Button buttonConverter;		
 	
 	public ConverterPanel(Color color, String value, String result, Map<String, Double> valueMap) {
 		
@@ -62,8 +62,13 @@ public class ConverterPanel extends JPanel {
 						/ valueSelectCombo2;
 				
 				String formatResultConvert;
-								
-				formatResultConvert = new DecimalFormat("0.00").format(resultConvert);		
+				
+				if(resultConvert > 999999999) {
+					formatResultConvert =  "+" + "999999999,99";
+					JOptionPane.showMessageDialog(ConverterPanel.this, "No es posible mostrar el resultado de la converción ya que supera los 9 dígitos disponibles");
+				} else {					
+					formatResultConvert = new DecimalFormat("0.00").format(resultConvert);
+				}
 				
 				ConverterPanel.this.result.setText(
 						formatResultConvert 
@@ -71,8 +76,8 @@ public class ConverterPanel extends JPanel {
 						+ combo2.getSelectedItem()
 						);				
 			}
-		}; 		
-		
+		}; 
+				
 		this.buttonConverter = new Button("Convertir");
 		this.buttonConverter.setBackground(color);
 		this.buttonConverter.setFont(new Font("Sanserif", Font.PLAIN, 18));
@@ -85,7 +90,6 @@ public class ConverterPanel extends JPanel {
 		add(this.combo1);
 		add(this.combo2);
 		add(this.buttonConverter);
-		add(this.result);		
-		
+		add(this.result);	
 	}
 }
