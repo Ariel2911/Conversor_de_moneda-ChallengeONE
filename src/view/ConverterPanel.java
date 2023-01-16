@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
@@ -21,8 +23,21 @@ public class ConverterPanel extends JPanel {
 	private JTextField valueField;
 	private JComboBox<Object> combo1, combo2;
 	private Button buttonConverter;	
+	private Map<String, Double> currencyMap;
+	
 	
 	public ConverterPanel(Color color, String value, String result) {
+		
+		currencyMap = new HashMap<>();
+		
+		currencyMap.put("USD", 1.0);
+		currencyMap.put("ARS", 0.0055);
+		currencyMap.put("BRL", 0.19);
+		
+		for (String item : currencyMap.keySet()) {
+			
+			System.out.println(item);
+		}
 		
 		setLayout(new GridLayout(6, 1, 8, 8));
 		setBorder(new CompoundBorder(
@@ -43,14 +58,23 @@ public class ConverterPanel extends JPanel {
 		
 		this.value = new JLabel(value);
 		this.result = new JLabel(result);
+		this.result.setForeground(color);
+		this.result.setFont(new Font("Sanserif", Font.BOLD, 18));
 		
 		this.valueField = new JTextField("150",20);
 		
 		this.combo1 = new JComboBox<Object>();
 		this.combo2 = new JComboBox<Object>();
 		
-		this.combo1.addItem("monada 1");
-		this.combo2.addItem("monada 2");
+		for (String item : currencyMap.keySet()) {
+			
+			this.combo1.addItem(item);
+		}
+		for (String item : currencyMap.keySet()) {
+			
+			this.combo2.addItem(item);
+		}
+		
 		
 		this.buttonConverter = new Button("Convertir");
 		this.buttonConverter.setBackground(color);
