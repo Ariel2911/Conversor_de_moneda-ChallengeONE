@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,17 +29,6 @@ public class ConverterPanel extends JPanel {
 	
 	public ConverterPanel(Color color, String value, String result) {
 		
-		currencyMap = new HashMap<>();
-		
-		currencyMap.put("USD", 1.0);
-		currencyMap.put("ARS", 0.0055);
-		currencyMap.put("BRL", 0.19);
-		
-		for (String item : currencyMap.keySet()) {
-			
-			System.out.println(item);
-		}
-		
 		setLayout(new GridLayout(6, 1, 8, 8));
 		setBorder(new CompoundBorder(
 				new LineBorder(
@@ -47,21 +37,17 @@ public class ConverterPanel extends JPanel {
 					)
 				);
 		
-		ActionListener event = new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("convertir");
-				
-			}
-		}; 
-		
 		this.value = new JLabel(value);
 		this.result = new JLabel(result);
 		this.result.setForeground(color);
 		this.result.setFont(new Font("Sanserif", Font.BOLD, 18));
 		
-		this.valueField = new JTextField("150",20);
+		this.valueField = new JTextField("0",20);
+		
+		currencyMap = new HashMap<>();		
+		currencyMap.put("USD", 1.0);
+		currencyMap.put("ARS", 0.0055);
+		currencyMap.put("BRL", 0.19);
 		
 		this.combo1 = new JComboBox<Object>();
 		this.combo2 = new JComboBox<Object>();
@@ -74,6 +60,30 @@ public class ConverterPanel extends JPanel {
 			
 			this.combo2.addItem(item);
 		}
+		
+		ActionListener event = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				Double DoubleValueField = Double.parseDouble(valueField.getText());
+				Double valueSelectCombo1 = currencyMap.get(combo1.getSelectedItem());
+				Double valueSelectCombo2 = currencyMap.get(combo2.getSelectedItem());
+				
+				Double resultConvert = 
+						(DoubleValueField * valueSelectCombo1) 
+						/ valueSelectCombo2;
+				
+				String formatResultConvert = new DecimalFormat("0.0000").format(resultConvert);
+				
+				ConverterPanel.this.result.setText(
+						formatResultConvert 
+						+" " 
+						+ combo2.getSelectedItem()
+						);
+				
+			}
+		}; 
 		
 		
 		this.buttonConverter = new Button("Convertir");
@@ -89,5 +99,6 @@ public class ConverterPanel extends JPanel {
 		add(this.combo2);
 		add(this.buttonConverter);
 		add(this.result);		
+		
 	}
 }
