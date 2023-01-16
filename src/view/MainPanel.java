@@ -15,16 +15,18 @@ public class MainPanel extends JPanel {
 	
 	private JLabel greeting, paragraph;
 	private ButtonGroup optionGroup;
-	private JRadioButton currency, temperature;
-	
-	ConverterPanel ConverterPanelCurrency = new ConverterPanel(new Color(255,0,0), "importe", "150 pesos");
-	ConverterPanel ConverterPanelTemperature = new ConverterPanel(new Color(0,0,255), "valor", "150 Cº");
+	private JRadioButton currency, temperature;	
+	private ConverterPanel ConverterPanelCurrency;
+	private ConverterPanel ConverterPanelTemperature;
 	
 	public MainPanel() {
 		
 		setLayout(new FlowLayout(FlowLayout.LEFT,0, 16));
 		
 		setBorder(BorderFactory.createEmptyBorder(8,8,8,8));
+		
+		ConverterPanelCurrency = new ConverterPanel(new Color(255,0,0), "importe", "150 pesos");
+		ConverterPanelTemperature = new ConverterPanel(new Color(0,0,255), "valor", "150 Cº");
 		
 		ConverterPanelTemperature.setVisible(false);
 		
@@ -55,14 +57,13 @@ public class MainPanel extends JPanel {
 		temperature.addActionListener(evento);
 		
 		optionGroup.add(currency);
-		optionGroup.add(temperature);
+		optionGroup.add(temperature);		
 		
 		add(greeting);
 		add(paragraph);
 		add(currency);
 		add(temperature);
 		add(ConverterPanelCurrency);
-		add(ConverterPanelTemperature);
-			
+		add(ConverterPanelTemperature);			
 	}
 }
