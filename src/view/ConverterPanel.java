@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
@@ -53,28 +54,44 @@ public class ConverterPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				Double DoubleValueField = Double.parseDouble(valueField.getText());
-				Double valueSelectCombo1 = valueMap.get(combo1.getSelectedItem());
-				Double valueSelectCombo2 = valueMap.get(combo2.getSelectedItem());
-				
-				Double resultConvert = 
-						(DoubleValueField * valueSelectCombo1) 
-						/ valueSelectCombo2;
-				
-				String formatResultConvert;
-				
-				if(resultConvert > 999999999) {
-					formatResultConvert =  "+" + "999999999,99";
-					JOptionPane.showMessageDialog(ConverterPanel.this, "No es posible mostrar el resultado de la converción ya que supera los 9 dígitos disponibles");
-				} else {					
-					formatResultConvert = new DecimalFormat("0.00").format(resultConvert);
+				try {
+					Double DoubleValueField = Double.parseDouble(valueField.getText());
+					Double valueSelectCombo1 = valueMap.get(combo1.getSelectedItem());
+					Double valueSelectCombo2 = valueMap.get(combo2.getSelectedItem());				
+					Double resultConvert = 
+							(DoubleValueField * valueSelectCombo1) 
+							/ valueSelectCombo2;				
+					String formatResultConvert;
+					
+					if(resultConvert > 999999999) {
+						
+						formatResultConvert =  "+" + "999999999.99";
+						JOptionPane.showMessageDialog(
+								ConverterPanel.this, 
+								"No es posible mostrar el resultado de la converción ya que supera los 9 dígitos disponibles"
+								);
+						
+					} else {					
+						
+						DecimalFormatSymbols a = new DecimalFormatSymbols();						
+						a.setDecimalSeparator('.');
+						
+						formatResultConvert = new DecimalFormat("0.00", a).format(resultConvert);
+					}
+					
+					ConverterPanel.this.result.setText(
+							formatResultConvert 
+							+" " 
+							+ combo2.getSelectedItem()
+							);				
+					
+				}
+				catch(Exception error) {
+					JOptionPane.showMessageDialog(
+							ConverterPanel.this, 
+							"Hay un error en el número ingresado. Por favor verifique que solo haya ingresado números sin comas(,). Para separar decimales se debe usar punto (.)");
 				}
 				
-				ConverterPanel.this.result.setText(
-						formatResultConvert 
-						+" " 
-						+ combo2.getSelectedItem()
-						);				
 			}
 		}; 
 				
