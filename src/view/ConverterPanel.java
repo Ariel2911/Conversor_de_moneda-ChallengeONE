@@ -41,7 +41,16 @@ public class ConverterPanel extends JPanel {
 		this.result.setForeground(color);
 		this.result.setFont(new Font("Sanserif", Font.BOLD, 18));
 		
-		this.valueField = new JTextField("0",20);
+		this.valueField = new JTextField("0.00",15);
+		this.valueField.setFont(new Font("Sanserif", Font.BOLD, 14));
+		this.valueField.setForeground(color);
+		this.valueField.setBorder(
+				new CompoundBorder(
+						new LineBorder(color, 2, true), 
+						BorderFactory.createEmptyBorder(8,4,8,4)
+						)
+				);
+//		this.valueField.setBackground(getBackground());
 		
 		this.combo1 = new JComboBox<String>();
 		this.combo2 = new JComboBox<String>();
@@ -89,7 +98,7 @@ public class ConverterPanel extends JPanel {
 				catch(Exception error) {
 					JOptionPane.showMessageDialog(
 							ConverterPanel.this, 
-							"Hay un error en el número ingresado. Por favor verifique que solo haya ingresado números sin comas(,). Para separar decimales se debe usar punto (.)");
+							"Dato inválido. Verifique el valor ingresado.");
 				}
 				
 			}
