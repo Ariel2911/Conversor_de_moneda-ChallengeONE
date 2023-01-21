@@ -29,8 +29,8 @@ public class MainPanel extends JPanel {
 		
 		Map<String, Double> currencyMap = new HashMap<>();		
 		currencyMap.put("USD", 1.0);
-		currencyMap.put("ARS", 0.0055);
-		currencyMap.put("BRL", 0.19);
+		currencyMap.put("ARS", 0.005451400697230547);
+		currencyMap.put("BRL", 0.19210453086509793);
 		
 		Map<String, Double> temperatureMap = new HashMap<>();		
 		temperatureMap.put("C°", 1.0);
