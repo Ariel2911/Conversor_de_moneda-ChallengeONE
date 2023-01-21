@@ -33,11 +33,11 @@ public class MainPanel extends JPanel {
 		currencyMap.put("BRL", 0.19);
 		
 		Map<String, Double> temperatureMap = new HashMap<>();		
-		temperatureMap.put("Cº", 1.0);
-		temperatureMap.put("Fº", 33.8);
+		temperatureMap.put("C°", 1.0);
+		temperatureMap.put("F°", 33.8);
 		
-		ConverterPanelCurrency = new ConverterPanel(new Color(72,120,250), "importe", "0.00 ARS", currencyMap);
-		ConverterPanelTemperature = new ConverterPanel(new Color(220,60,60), "valor", "0.00 Fº", temperatureMap);
+		ConverterPanelCurrency = new ConverterPanel(new Color(72,120,250), "importe", "0.00 ARS", currencyMap, "Currency");
+		ConverterPanelTemperature = new ConverterPanel(new Color(220,60,60), "valor", "0.00 F°", temperatureMap, "Temperature");
 		
 		ConverterPanelTemperature.setVisible(false);
 		

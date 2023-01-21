@@ -26,7 +26,7 @@ public class ConverterPanel extends JPanel {
 	private JComboBox<String> combo1, combo2;
 	private Button buttonConverter;		
 	
-	public ConverterPanel(Color color, String value, String result, Map<String, Double> valueMap) {
+	public ConverterPanel(Color color, String value, String result, Map<String, Double> valueMap, String converterType) {
 		
 		setLayout(new GridLayout(6, 1, 8, 8));
 		setBorder(new CompoundBorder(
@@ -50,7 +50,6 @@ public class ConverterPanel extends JPanel {
 						BorderFactory.createEmptyBorder(8,4,8,4)
 						)
 				);
-//		this.valueField.setBackground(getBackground());
 		
 		this.combo1 = new JComboBox<String>();
 		this.combo2 = new JComboBox<String>();
@@ -66,10 +65,62 @@ public class ConverterPanel extends JPanel {
 				try {
 					Double DoubleValueField = Double.parseDouble(valueField.getText());
 					Double valueSelectCombo1 = valueMap.get(combo1.getSelectedItem());
-					Double valueSelectCombo2 = valueMap.get(combo2.getSelectedItem());				
-					Double resultConvert = 
-							(DoubleValueField * valueSelectCombo1) 
-							/ valueSelectCombo2;				
+					Double valueSelectCombo2 = valueMap.get(combo2.getSelectedItem());	
+					Double resultConvert = 0.00;
+					
+					switch (converterType) {					
+					
+						case "Currency": {
+							
+							resultConvert = 
+									(DoubleValueField * valueSelectCombo1) 
+									/ valueSelectCombo2;				
+							break;
+						}
+						case "Temperature": {
+																			
+							if(combo1.getSelectedItem() == "C°") {
+								
+								switch ((String) combo2.getSelectedItem()) {
+								
+									case "C°": {
+										resultConvert = DoubleValueField;	
+										break;
+									}
+									
+									case "F°": {
+										resultConvert = (DoubleValueField * 9/5) + 32;	
+										break;
+									}
+									default:
+										break;
+									}
+							}
+							
+							if(combo1.getSelectedItem() == "F°") {
+							
+								switch ((String) combo2.getSelectedItem()) {
+							
+									case "F°": {
+										resultConvert = DoubleValueField;	
+										break;
+									}
+								
+									case "C°": {
+										resultConvert = (DoubleValueField -32) * 5/9;	
+										break;
+									}
+									default:
+										break;
+									}
+							}
+						
+						break;
+					}
+					default:
+						break;
+					}
+					
 					String formatResultConvert;
 					
 					if(resultConvert > 999999999) {
@@ -78,8 +129,7 @@ public class ConverterPanel extends JPanel {
 						JOptionPane.showMessageDialog(
 								ConverterPanel.this, 
 								"No es posible mostrar el resultado de la converción ya que supera los 9 dígitos disponibles"
-								);
-						
+								);						
 					} else {					
 						
 						DecimalFormatSymbols a = new DecimalFormatSymbols();						
@@ -92,15 +142,13 @@ public class ConverterPanel extends JPanel {
 							formatResultConvert 
 							+" " 
 							+ combo2.getSelectedItem()
-							);				
-					
+							);
 				}
 				catch(Exception error) {
 					JOptionPane.showMessageDialog(
 							ConverterPanel.this, 
 							"Dato inválido. Verifique el valor ingresado.");
-				}
-				
+				}				
 			}
 		}; 
 				
