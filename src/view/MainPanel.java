@@ -18,8 +18,7 @@ public class MainPanel extends JPanel {
 	private JLabel greeting, paragraph;
 	private ButtonGroup optionGroup;
 	private JRadioButton currency, temperature;	
-	private ConverterPanel ConverterPanelCurrency;
-	private ConverterPanel ConverterPanelTemperature;
+	private ConverterPanel ConverterPanelCurrency, ConverterPanelTemperature;
 	
 	public MainPanel() {
 		
@@ -41,7 +40,7 @@ public class MainPanel extends JPanel {
 		
 		ConverterPanelTemperature.setVisible(false);
 		
-		ActionListener evento = new ActionListener() {
+		ActionListener selectConverter = new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -59,11 +58,12 @@ public class MainPanel extends JPanel {
 		paragraph = new JLabel("Elije la opción que deseas utilizar");
 		
 		optionGroup = new ButtonGroup();
-		currency = new JRadioButton("Moneda", true);
-		temperature = new JRadioButton("Temperatura", false);
 		
-		currency.addActionListener(evento);
-		temperature.addActionListener(evento);
+		currency = new JRadioButton("Moneda", true);
+		currency.addActionListener(selectConverter);
+		
+		temperature = new JRadioButton("Temperatura", false);		
+		temperature.addActionListener(selectConverter);
 		
 		optionGroup.add(currency);
 		optionGroup.add(temperature);		
